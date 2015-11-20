@@ -1,0 +1,119 @@
+    #include<iostream>
+    #include<vector>
+    #include<cmath>
+    #include<cstdio>
+    #include<cstring>
+    typedef long long ll;
+    //typedef unsigned long long ull;
+    #define MAX 10000000
+     
+    using namespace std;
+     
+     
+     
+    bool arr[MAX+1]={false};
+    int sp[MAX+1]={0};
+     
+     
+     
+     
+     
+     
+        
+     
+    void Sieve(){
+    	for (int i = 2; i <= MAX; i=i+2)	
+    	{sp[i] = 2;
+    	}
+    	for (int i = 3; i <= MAX; i=i+2)
+    	{
+    		if (arr[i]==false)
+    		{
+    			sp[i] = i;
+    			
+    			for (ll j = i; (j*i) <= MAX; j=j+2)
+    			{
+    				if (arr[j*i]==false)
+    				{
+    				    
+    					arr[j*i] = true;
+    					sp[j*i] = i;
+    				
+    					
+    			    }
+    			}
+    		}
+    			
+    	}
+     
+    }
+     
+    vector<int> factorize(int k)
+    {
+        vector<int> ans;
+        while(k>1)
+        {
+            ans.push_back(sp[k]);
+            k=k/sp[k];
+        }
+        return ans;
+    }
+     
+     
+     
+    inline int scan_d()    {int ip=getchar_unlocked(),ret=0,flag=1;for(;ip<'0'||ip>'9';ip=getchar_unlocked())if(ip=='-'){flag=-1;ip=getchar_unlocked();break;}for(;ip>='0'&&ip<='9';ip=getchar_unlocked())ret=ret*10+ip-'0';return flag*ret;}
+     
+     
+    int main()
+    {
+        
+       int t,i;
+       t=scan_d();
+       Sieve();
+       ll n;
+       ll sum;
+       vector<int> number;
+       while(t--)
+       {
+           
+           n=scan_d();
+           
+           if(n==1)
+           {
+               sum = 1;
+           }
+           else if(sp[n]==n)
+           {
+               sum = 1+n*(n-1);
+           }
+           else
+           {
+               number = factorize(n);
+               sum = 1;
+               for(i=0;i<number.size();)
+               {
+                   int p = 0;
+                   int temp=number[i];
+                   while(i<number.size() && number[i]==temp )
+                   {
+                       p++;
+                       i++;
+                   }
+                  sum= (sum)*((ll)pow(temp,2*p)  - ((((ll)pow(temp,2*p))-1)/(ll)(temp+1)));
+                  
+        
+                 
+                   
+                   
+               }
+              
+           }
+           
+           printf("%lld\n",sum);
+           
+       }
+       
+      
+       return 0;    
+     
+    } 
