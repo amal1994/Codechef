@@ -1,0 +1,54 @@
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+using namespace std;
+ 
+int gcd(int a,int b)
+{
+    if(b==0)
+    {
+        return a;
+    }
+    else
+    {
+        gcd(b,a%b);
+    }
+}
+ 
+ 
+ 
+int main() {
+	// your code goes here
+	int t,m,n,i,item,hcf;
+	scanf("%d\n",&t);
+	while(t--)
+	{
+	   
+	    scanf("%d %d\n",&n,&m);
+	 
+	    if(m == 0 && n>1)
+	    {
+	        printf("No 1\n");
+	    }
+	    
+	    else if(m == 1)
+	    {
+	        printf("Yes\n");
+	    }
+	    else 
+	    {
+	        hcf = gcd(n,m);
+	        if(hcf > 1)
+	        {
+	            printf("No %d\n",(n/hcf));
+	        }
+	        else
+	        {
+	            printf("Yes\n");
+	        }
+	    }
+        
+	    
+	}
+	return 0;
+}
